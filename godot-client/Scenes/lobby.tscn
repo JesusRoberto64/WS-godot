@@ -1,0 +1,101 @@
+[gd_scene load_steps=2 format=3 uid="uid://bd82604oppya6"]
+
+[ext_resource type="Script" path="res://Scripts/Lobby.gd" id="1_my02j"]
+
+[node name="Lobby" type="Node2D"]
+script = ExtResource("1_my02j")
+
+[node name="enterlobby" type="Button" parent="."]
+offset_left = 184.0
+offset_top = 16.0
+offset_right = 248.0
+offset_bottom = 47.0
+size_flags_horizontal = 4
+text = "ENTER"
+
+[node name="LineEdit" type="LineEdit" parent="enterlobby"]
+layout_mode = 0
+offset_left = -175.0
+offset_right = -4.0
+offset_bottom = 31.0
+placeholder_text = "Enter Name"
+max_length = 10
+
+[node name="createRoom" type="Button" parent="."]
+offset_left = 472.0
+offset_top = 16.0
+offset_right = 538.0
+offset_bottom = 47.0
+size_flags_horizontal = 4
+text = "CREATE"
+
+[node name="LineEdit" type="LineEdit" parent="createRoom"]
+layout_mode = 0
+offset_left = -175.0
+offset_right = -4.0
+offset_bottom = 31.0
+placeholder_text = "Room name"
+max_length = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+offset_left = 40.0
+offset_top = 72.0
+offset_right = 501.0
+offset_bottom = 323.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer2" type="ScrollContainer" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="Players" type="VBoxContainer" parent="PanelContainer/HBoxContainer/ScrollContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="player" type="Label" parent="PanelContainer/HBoxContainer/ScrollContainer2/Players"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "PLAYERS "
+
+[node name="ColorRect" type="ColorRect" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.167952, 0.179855, 0.213496, 1)
+
+[node name="Send" type="Button" parent="PanelContainer/HBoxContainer/ColorRect"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -27.5
+offset_top = -15.5
+offset_right = 27.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Send Message"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.39
+horizontal_scroll_mode = 0
+
+[node name="Rooms" type="VBoxContainer" parent="PanelContainer/HBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Label" type="Label" parent="PanelContainer/HBoxContainer/ScrollContainer/Rooms"]
+layout_mode = 2
+text = "ROOMS"
+
+[node name="Button" type="Button" parent="PanelContainer/HBoxContainer/ScrollContainer/Rooms"]
+layout_mode = 2
+text = "<Dummie1>"
+
+[connection signal="pressed" from="enterlobby" to="." method="_on_enterlobby_pressed"]
+[connection signal="pressed" from="createRoom" to="." method="_on_create_room_pressed"]

@@ -1,2 +1,4 @@
 /ws-server/node_modules/
 /ws-server/dist/
+# Godot 4+ specific ignores
+/godot-client/.godot/

@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://3rwep23gye16"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_smtor"]
+[ext_resource type="PackedScene" uid="uid://dglrjxcrg0uwf" path="res://Scenes/websocket_client.tscn" id="2_myeqc"]
+
+[node name="Player" type="Node2D"]
+script = ExtResource("1_smtor")
+
+[node name="websocketClient" parent="." instance=ExtResource("2_myeqc")]
+
+[node name="sendMessage" type="Button" parent="."]
+offset_left = 175.0
+offset_top = 4.0
+offset_right = 226.0
+offset_bottom = 35.0
+text = "SEND"
+
+[node name="LineEdit" type="LineEdit" parent="sendMessage"]
+layout_mode = 0
+offset_left = -166.0
+offset_right = -9.0
+offset_bottom = 31.0
+placeholder_text = "Your Message"
+max_length = 10
