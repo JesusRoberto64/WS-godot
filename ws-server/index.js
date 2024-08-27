@@ -1,30 +1,18 @@
 import { WebSocketServer } from "ws";
 import { v4 as uuidv4} from "uuid";
+import rooms from "./roomsDb.js";
+import players from "./playersDb.js";
 
 const wss = new WebSocketServer({port: 3000});
 console.log("Listening in ws://localhost:3000")
 //Set the players map
-let Players = new Map();
-//set a Dummie player
-let tempID = "132185452";
-Players.set(tempID, {nick: "MasterHost", room: "", socket: undefined})
-//{_id: id, nick: "", room: "", socket: ws} //Players Object structure
+let Players = players
+//Set rooms map WIP from server
+let Rooms = rooms
 
-//Set rooms map
-let Rooms = new Map();
-//set dummie rooms
-for (let i = 0; i < 5; i++) {
-    let tempName = `<Room${i}>`;
-    let tempPlayersSet = new Set();
-    tempPlayersSet.add(`host${i}`)
-
-    Rooms.set(tempName, {name: tempName, host:`host${i}`, playersSet: tempPlayersSet});
-}
-
-//{_name: param, host: id, players: [id]} //Rooms object structure
 wss.on("connection", ws =>{
     const id = uuidv4();
-    Players.set(id, {nick: "", room: "", socket: ws});
+    Players.set(id, {nick: "", room: "Lobby", socket: ws});
     console.log("Total de Players", Players.size);
     //Notify connection
     ws.send(JSON.stringify({"action": "connect", "param": `PlayerID ${id} conectado!`}));
@@ -39,21 +27,31 @@ wss.on("connection", ws =>{
            Players.set(id,newPlayer);//Update object in map 
            console.log(`${newPlayer.nick} connected `, `ID: ${id}`);
            
-           let arr = []
+           let array = []
            Rooms.forEach(rm =>{
-                arr.push(rm.name)
+                array.push(rm.name)
            });
-           ws.send(JSON.stringify({"action": "getRooms", "param": arr}))
+           ws.send(JSON.stringify({"action": "getRooms", "param": array}))
 
-       } else if (action === "message"){//Message to consol
+       } else if (action === "message"){//Message to server consol Debug
             console.log(param);
-
-       } else if (action === "findRoom") {
+       }
+        else if (action === "sendMessageToPlayer"){
+            const [playerId, message] = param.split("*");
+            const targetPlayer = Players.get(playerId);
+            if (targetPlayer){
+                targetPlayer.socket.send(JSON.stringify({action: "message", param: message}))
+            }else{
+                ws.send(JSON.stringify({"action": "message", "param": "Player not founded"}))
+            }
+        }
+        else if (action === "findRoom") {
             const searchRoom = Rooms.find(rm => rm._name === param);
             if (searchRoom){
+                //return room 
                 
             }else{
-                console.log("Aint no room with that name")
+                ws.send(JSON.stringify({"action": "message", "param": "Room not found"}))
             }
 
        } else if (action === "createRoom") { //Create Room

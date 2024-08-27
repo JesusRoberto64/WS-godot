@@ -1,8 +1,9 @@
 extends Node
 
 var socket = WebSocketPeer.new()
-@export var nickName = "PalyerNick"
-@export var room = ""
+@export var nickName := "PalyerNick"
+@export var room := ""
+var Id := ""
 
 func _ready():
 	#Guradia para padre
@@ -49,8 +50,13 @@ func action_JSON(action, param):
 	match action:
 		"message":
 			print(param)
+		"sendMessageToPlayer":
+			var playerId = "00000000-0000-0000-0000-000001E240"
+			var message  = "Hola"
+			var send = playerId + "*" + message
+			socket.put_packet(JSON.stringify({"action": "sendMessageToPlayer", "param": send }).to_utf8_buffer())
+			pass
 		"connect":
-			#get_parent().add_Player_Tag(nickName)
 			print("Connected...")
 			socket.put_packet(JSON.stringify({"action": "connect","param": nickName}).to_utf8_buffer())
 		"getRooms":
@@ -63,13 +69,17 @@ func action_JSON(action, param):
 				#get_parent().add_Player_Tag(i)
 			pass
 
-func send_Text():
+func send_Text_All():
 	print("Sended Text")
 	var state = socket.get_ready_state()
 	if state == WebSocketPeer.STATE_OPEN:
 		#socket.send_text("Desde godot")
 		socket.send(JSON.stringify({"action": "message", "param": "desde Godot 1"}).to_utf8_buffer(),WebSocketPeer.WRITE_MODE_TEXT)
 		pass
+	pass
+
+func send_Text_Player():
+	
 	pass
 
 func join_Room():
