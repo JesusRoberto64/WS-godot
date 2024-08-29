@@ -4,21 +4,33 @@ var socket = WebSocketPeer.new()
 @export var nickName := "PalyerNick"
 @export var room := ""
 var Id := ""
+signal Ws_connected
 
-func _ready():
+var tween: Tween
+
+func _ready() -> void:
+	server_connect()
+
+func server_connect() -> void:
 	#Guradia para padre
 	var error = socket.connect_to_url("ws://localhost:3000")
-	print(error)
-	if error != OK:
-		printerr("Failure!")
-	else:
-		print("Succes")
+	
+	#Await server answer 
+	tween = get_tree().create_tween().set_loops(50)
+	tween.tween_callback(update_socket).set_delay(0.01)
+	#Kill process at 10 sec
+	
+	
+	#Throw error.
+	
+	
 
-func _process(_delta):
+func update_socket():
 	socket.poll()
 	var state = socket.get_ready_state()
 	if state == WebSocketPeer.STATE_OPEN:
 		while socket.get_available_packet_count():
+			tween.kill()
 			var packet = socket.get_packet().get_string_from_utf8()
 			resive_Package(packet)
 	elif state == WebSocketPeer.STATE_CLOSING:
@@ -30,6 +42,8 @@ func _process(_delta):
 		var reason = socket.get_close_reason()
 		print("WebSocket closed with code: %s, reason %s. Clean: %s" % [code, reason, code != -1])
 		set_process(false) # Stop processing.
+	elif state == WebSocketPeer.STATE_CONNECTING:
+		print(randi(), " coneccting")
 
 func resive_Package(pack: String) -> void:
 	var json = JSON.new()
