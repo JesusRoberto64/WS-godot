@@ -8,8 +8,14 @@ signal Ws_connected
 
 var tween: Tween
 
+var Log = preload("res://Scripts/ws/log.gd").new()
+
 func _ready() -> void:
-	server_connect()
+	add_child(Log)
+	
+	Log.connect_to_server("ws://localhost:3000", socket)
+	
+	pass
 
 func server_connect() -> void:
 	#Guradia para padre
