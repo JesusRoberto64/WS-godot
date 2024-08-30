@@ -43,7 +43,7 @@
    ```bash
    npm start
    ```
-Puedes usar node:
+2. Puedes usar node:
    
    ```bash
    node index.js
