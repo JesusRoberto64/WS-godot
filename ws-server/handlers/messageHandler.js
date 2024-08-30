@@ -28,7 +28,9 @@ function handleConnect(param, id, Players, ws){
     newPlayer.nick = param;
 
     Players.set(id, newPlayer); //Update Map
+    
     console.log(`${newPlayer.nick} connected, ID: ${id}`);
+    console.log(`Total players ${Players.size}`)
 
     //let roomNames = Array.from(Rooms.values()).map(room => room._name);
    // ws.send(JSON.stringify({ "action": "getRooms", "param": roomNames }));
