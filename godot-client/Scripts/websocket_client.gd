@@ -1,13 +1,17 @@
 extends WebSocketClient
 
+#The objects that contains all the logic in a modular fashion
+#it can be seted as a normal node but it's convenient to 
+#instanciate this way beacuse it's easier to visualize in code
 var Log = preload("res://Scripts/ws/log.gd").new()
 var Lobby = preload("res://Scripts/ws/lobby.gd").new()
 var Update = preload("res://Scripts/ws/update.gd").new()
 
 func _ready() -> void:
-	add_child(Log)
+	#A hub for all the logic between the scripts
+	add_child(Log) #all login logic to start poll data
+	add_child(Update)# update socket logic
 	add_child(Lobby)
-	add_child(Update)
 	
 	Log.package_recived.connect(resive_package)
 	Log.ws_connected.connect(connected_socket)
@@ -18,7 +22,8 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if state == STATE.CONNECTED:
-		Update.update_socket(socket)
+		#Getting packages form server on real time
+		Update.update_socket(socket) 
 
 func connect_to_server(_nickname: String)-> void:
 	nickName = _nickname

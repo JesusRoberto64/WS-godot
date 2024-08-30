@@ -10,7 +10,7 @@ func update_socket(ws: WebSocketPeer):
 	if state == WebSocketPeer.STATE_OPEN:
 		while ws.get_available_packet_count():
 			var packet = ws.get_packet().get_string_from_utf8()
-			package_recived.emit(packet)
+			package_recived.emit(packet) #Back to the websocketclient class function
 	elif state == WebSocketPeer.STATE_CLOSING:
 		closing.emit("Closing time...")
 	elif state == WebSocketPeer.STATE_CLOSED:

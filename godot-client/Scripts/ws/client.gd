@@ -25,7 +25,7 @@ func resive_package(pack: String) -> void:
 		print("JSON ERROR FORMAT")
 
 func action_JSON(action, param):
-	#All this logic es when resiving package from WSserver
+	#All this logic es when receiving package from WSserver
 	match action:
 		"connect":
 			state = STATE.CONNECTED
@@ -46,10 +46,10 @@ func action_JSON(action, param):
 
 func closed_socket(message: String)-> void:
 	state = STATE.HOLD
-	print(message)
+	#print(message)
 
 func connected_socket(connected: bool)-> void:
-	print("websocketclass -- is connectd: ", connected)
+	#print("websocketclass -- is connectd: ", connected)
 	if !connected:
 		socket.close()
 	is_connected.emit(connected)
