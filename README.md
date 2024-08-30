@@ -45,9 +45,9 @@
    ```
 Puedes usar node:
 
-	```bash
-	node index.js
-	```
+   ```bash
+   node index.js
+   ```
 
 
 2. Configura tu cliente en GODOT para conectarse al servidor WebSocket proporcionado por este backend.
