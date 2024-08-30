@@ -16,7 +16,7 @@
 - **WebSocket**: Librería para la comunicación en tiempo real entre el servidor y los clientes.
 - **GODOT**: Motor de desarrollo de juegos utilizado en la parte cliente para implementar la lógica y las interfaces de usuario.
 
-## Instalación
+## Instalación Server en Node
 
 1. Clona este repositorio en tu máquina local:
 
@@ -43,8 +43,20 @@
    ```bash
    npm start
    ```
+Puedes usar node:
+
+	```bash
+	node index.js
+	```
+
 
 2. Configura tu cliente en GODOT para conectarse al servidor WebSocket proporcionado por este backend.
+
+## Proyecto de Godot
+
+Úsando actualmente GODOT 4.3
+
+La lógica escencial esta en la carpeta de Scripts/ws. Está dibididad en scripts con componentes para la comunicación con el server. 
 
 ## Contribuciones
 
