@@ -56,11 +56,11 @@
 
 Úsando actualmente GODOT 4.3
 
-La lógica escencial esta en la carpeta de Scripts/ws. Está dibididad en scripts con componentes para la comunicación con el server. 
+La lógica escencial esta en la carpeta de Scripts/ws. Está dividida en scripts con componentes para la comunicación con el server. 
 
 ## Contribuciones
 
-¡Contribuciones son bienvenidas! Si tienes ideas para mejorar este proyecto, no dudes en abrir un issue o enviar un pull request.
+¡Contribuciones son bienvenidas! Si tienes ideas para mejorar este proyecto, no dudes en forkear, abrir un issue o enviar un pull request.
 
 ## Licencia
 
